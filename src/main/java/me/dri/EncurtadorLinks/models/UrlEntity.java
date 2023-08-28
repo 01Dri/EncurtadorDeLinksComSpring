@@ -4,6 +4,7 @@ package me.dri.EncurtadorLinks.models;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Date;
 
 
@@ -24,7 +25,7 @@ public class UrlEntity implements Serializable {
     @Column(name = "URL_SHORTENER_DATE_CREATED")
     private Date dateCreatedUrlShortener;
     @Column(name = "URL_EXPIREDDATE")
-    private Date expiredDate;
+    private Instant expiredDate;
 
     @Column(name = "expired")
     private Boolean expired;
@@ -33,7 +34,7 @@ public class UrlEntity implements Serializable {
 
     }
 
-    public UrlEntity(Long id, String urlBase, String urlShortener, Date dateCreatedUrlShortener, Date expiredDate, Boolean expired) {
+    public UrlEntity(Long id, String urlBase, String urlShortener, Date dateCreatedUrlShortener, Instant expiredDate, Boolean expired) {
         this.id = id;
         this.urlBase = urlBase;
         this.urlShortener = urlShortener;
@@ -74,11 +75,11 @@ public class UrlEntity implements Serializable {
         this.dateCreatedUrlShortener = dateCreatedUrlShortener;
     }
 
-    public Date getExpiredDate() {
+    public Instant getExpiredDate() {
         return expiredDate;
     }
 
-    public void setExpiredDate(Date expiredDate) {
+    public void setExpiredDate(Instant expiredDate) {
         this.expiredDate = expiredDate;
     }
 
