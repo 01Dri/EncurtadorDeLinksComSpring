@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,10 +22,10 @@ public class UrlServices {
 
     public UrlEntity getUrlEntityShortener(String url)  {
 
-        if (!url.startsWith("https://") || url.isBlank()) {
+        if (!url.contains("https://")) {
             throw new UrlFormatInvalid("Url informado é inválido!");
         }
-        List<String> urlsBaseInDatabase = this.repository.findAllUrl();
+        List<String> urlsBaseInDatabase = this.repository.findAllUrlBase();
         if (urlsBaseInDatabase.contains(url)) {
             UrlEntity urlEntity = this.repository.findByUrlBase(url);
             if (this.verifyExpiredDateUrlShortener(urlEntity.getExpiredDate())) {
@@ -45,8 +43,9 @@ public class UrlServices {
         return urlEntity;
 
     }
-        public UrlEntity redirect(String shortKey) {
-            UrlEntity urlEntity = this.repository.findByUrlShortener(shortKey);
+    //  Por algum motivo esse metodo não funciona!
+        public String redirect(String shortKey) {
+            String urlEntity = this.repository.findUrlBase(shortKey);
             if (urlEntity == null) {
                 throw  new NotFoundUrl("Não foi possivel encontrar a URL: ");
             }

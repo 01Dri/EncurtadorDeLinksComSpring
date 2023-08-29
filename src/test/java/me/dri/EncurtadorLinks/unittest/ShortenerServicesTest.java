@@ -60,13 +60,11 @@ public class ShortenerServicesTest {
 
     @Test
     void testRedirect() {
-        Instant now = Instant.now();
-        now.atZone(ZoneOffset.of("-03:00"));
-        UrlEntity urlEntity = new UrlEntity(1L, "urlBase", "urlEncurtada", now, this.urlServices.generateExpirationDate(now), false);
-        when(this.urlEntityRepository.findByUrlShortener(any())).thenReturn(urlEntity);
-        var result = this.urlServices.redirect(urlEntity.getUrlShortener());
-        assertNotNull(result);
-        assertEquals(urlEntity.getUrlBase(), result.getUrlBase());
+        String shortKey = "teste";
+        String urlBaseMock = "https://www.twitch.tv/shy11_";
+        when(this.urlEntityRepository.findUrlBase(any())).thenReturn(urlBaseMock);
+        var urlBaseResult = this.urlServices.redirect(shortKey);
+        assertEquals(urlBaseMock, urlBaseResult);
 
     }
 
@@ -82,7 +80,7 @@ public class ShortenerServicesTest {
         String urlMock = "https://twitter.com/home";
         UrlEntity url = new UrlEntity();
         url.setExpiredDate(Instant.now().atZone(ZoneOffset.of("-03:00")).plusHours(1).toInstant());
-        when(this.urlEntityRepository.findAllUrl()).thenReturn(List.of(urlMock));
+        when(this.urlEntityRepository.findAllUrlBase()).thenReturn(List.of(urlMock));
         when(this.urlEntityRepository.findByUrlBase(any())).thenReturn(url);
         assertThrows(UrlShortenerExpired.class, () -> this.urlServices.getUrlEntityShortener(urlMock));
 
