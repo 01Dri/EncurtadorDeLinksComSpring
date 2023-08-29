@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface UrlEntityRepository  extends JpaRepository<UrlEntity, Long> {
 
-    @Query("SELECT u.urlBase FROM UrlEntity")
+    @Query("SELECT u.urlBase FROM UrlEntity u")
     List<String> findAllUrl();
 
     @Query("SELECT u FROM UrlEntity u WHERE u.urlBase = :url")

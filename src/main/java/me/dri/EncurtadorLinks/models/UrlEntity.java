@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Date;
 
 
 @Entity
@@ -23,7 +22,7 @@ public class UrlEntity implements Serializable {
     private String urlShortener;
 
     @Column(name = "URL_SHORTENER_DATE_CREATED")
-    private Date dateCreatedUrlShortener;
+    private Instant dateCreatedUrlShortener;
     @Column(name = "URL_EXPIREDDATE")
     private Instant expiredDate;
 
@@ -34,7 +33,7 @@ public class UrlEntity implements Serializable {
 
     }
 
-    public UrlEntity(Long id, String urlBase, String urlShortener, Date dateCreatedUrlShortener, Instant expiredDate, Boolean expired) {
+    public UrlEntity(Long id, String urlBase, String urlShortener, Instant dateCreatedUrlShortener, Instant expiredDate, Boolean expired) {
         this.id = id;
         this.urlBase = urlBase;
         this.urlShortener = urlShortener;
@@ -67,11 +66,11 @@ public class UrlEntity implements Serializable {
         this.urlShortener = urlShortener;
     }
 
-    public Date getDateCreatedUrlShortener() {
+    public Instant getDateCreatedUrlShortener() {
         return dateCreatedUrlShortener;
     }
 
-    public void setDateCreatedUrlShortener(Date dateCreatedUrlShortener) {
+    public void setDateCreatedUrlShortener(Instant dateCreatedUrlShortener) {
         this.dateCreatedUrlShortener = dateCreatedUrlShortener;
     }
 
