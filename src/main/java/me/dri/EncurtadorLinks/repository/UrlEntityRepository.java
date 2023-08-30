@@ -22,10 +22,11 @@ public interface UrlEntityRepository  extends JpaRepository<UrlEntity, Long> {
     UrlEntity findByUrlBase(@Param("url")String url);
 
     @Query("SELECT u.urlBase FROM UrlEntity u WHERE u.urlShortener = :urlShortener")
-    String findUrlBase(@Param("urlShortener")String urlShortener);
+    String findByUrlShortener(@Param("urlShortener") String urlShortener);
 
     @Query("SELECT u FROM UrlEntity u WHERE u.urlShortener = :urlShortener")
-    UrlEntity findByUrlShortener(@Param("urlShortener")String urlShortener);
+    UrlEntity findByUrlShortenerEntity(@Param("urlShortener") String urlShortener);
+
 
 
 }
