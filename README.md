@@ -2,6 +2,15 @@
 
 Este projeto foi desenvolvido com o objetivo de aprimorar meus conhecimentos, abraçando o desafio proposto pelo repositório [BackEnd Brasil](https://github.com/backend-br).
 
+## Tecnologias Utilizadas
+
+O projeto foi construído utilizando as seguintes tecnologias:
+
+- [Spring Boot](https://spring.io/projects/spring-boot): Um framework para facilitar a criação de aplicativos Java.
+- [PostgreSQL](https://www.postgresql.org/): Um sistema de gerenciamento de banco de dados relacional de código aberto.
+- [JUnit](https://junit.org/junit5/): Um framework para testes unitários em Java.
+- [Mockito](https://site.mockito.org/): Uma biblioteca para criação de mocks e simulação de objetos para testes.
+
 ## Metodologia
 
 O sistema é composto por 2 *endpoints* principais:
