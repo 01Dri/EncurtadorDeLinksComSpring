@@ -27,10 +27,8 @@ public class ShortenerController {
     }
     @GetMapping("/acessar/{shortKey}")
     public RedirectView acessSUrlBaseByShortener(@PathVariable String shortKey) {
-        var urlBase = this.urlServices.redirect(shortKey);
-        var urlReplaced = urlBase.replace("url:", "");
-       System.out.println(urlReplaced);
-       return new RedirectView(urlBase);
+        var urlDTO = this.urlServices.redirect(shortKey);
+       return new RedirectView(urlDTO);
    }
 
     @GetMapping("/all")

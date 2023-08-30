@@ -1,12 +1,10 @@
 package me.dri.EncurtadorLinks.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jdk.swing.interop.SwingInterOpUtils;
 import me.dri.EncurtadorLinks.exceptions.NotFoundUrl;
 import me.dri.EncurtadorLinks.exceptions.UrlFormatInvalid;
 import me.dri.EncurtadorLinks.exceptions.UrlShortenerExpired;
 import me.dri.EncurtadorLinks.models.UrlEntity;
+import me.dri.EncurtadorLinks.models.dto.UrlEntityDTO;
 import me.dri.EncurtadorLinks.models.dto.UrlRequestDTO;
 import me.dri.EncurtadorLinks.repository.UrlEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,7 @@ public class UrlServices {
     private static final String ZONEID = "America/Sao_Paulo";
 
 
-    public UrlEntity getUrlEntityShortener(UrlRequestDTO url) throws JsonProcessingException {
+    public UrlEntityDTO getUrlEntityShortener(UrlRequestDTO url) throws JsonProcessingException {
 
         if (!url.urlBase().contains("https://")) {
             throw new UrlFormatInvalid("Url informado é inválido!");
@@ -41,10 +39,11 @@ public class UrlServices {
                 urlEntity.setExpiredDate(this.generateExpirationDate(now));
                 urlEntity.setExpired(false);
                 this.repository.save(urlEntity);
-                return urlEntity;
-                }
-            return urlEntity;
+                return this.convertEntityToDTO(urlEntity);
+            } else {
+                return this.convertEntityToDTO(urlEntity);
             }
+        }
 
         String shortKey = this.generateUrlShortener();
         Instant now = Instant.now();
@@ -52,7 +51,7 @@ public class UrlServices {
         UrlEntity urlEntity = new UrlEntity(null, url.urlBase(), shortKey, now, this.generateExpirationDate(now), false);
         this.repository.save(urlEntity);
 
-        return urlEntity;
+        return this.convertEntityToDTO(urlEntity);
 
     }
         public String redirect(String shortKey) {
@@ -64,7 +63,8 @@ public class UrlServices {
                 urlEntityByShortener.setExpired(true);
                 throw  new UrlShortenerExpired("Url expirado!");
             }
-           return  urlEntityByShortener.getUrlBase();
+
+            return urlEntityByShortener.getUrlBase();
        }
         public Instant generateExpirationDate (Instant dateCreated) {
                 return dateCreated.atZone(ZoneId.of(ZONEID)).plusHours(2).toInstant();
@@ -72,13 +72,17 @@ public class UrlServices {
         private String generateUrlShortener() {
             UUID uuid = UUID.randomUUID();
             String uuidString = uuid.toString().replace("-", "");
-            return uuidString.substring(0, 8);
+            return uuidString.substring(0, 7);
         }
 
         private Boolean  verifyExpiredDateUrlShortener(Instant expiredDate) {
             Instant now = Instant.now();
             now.atZone(ZoneId.of(ZONEID));
             return now.isAfter(expiredDate);
+        }
+
+        private UrlEntityDTO convertEntityToDTO(UrlEntity urlEntity) {
+            return new UrlEntityDTO(urlEntity.getId(), urlEntity.getUrlBase(), urlEntity.getUrlShortener(), urlEntity.getDateCreatedUrlShortener(), urlEntity.getExpiredDate(), urlEntity.getExpired());
         }
 
     }
