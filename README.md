@@ -11,10 +11,10 @@ Este projeto foi desenvolvido com o objetivo de aprimorar meus conhecimentos, ab
 1. **Clone este repositório para o seu ambiente local:**
 
    ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
+   git clone https://github.com/01Dri/EncurtadorDeLinksComSpring.git
 2. **cd encurtador-de-links:**
    ```bash
-   cd encurtador-de-links
+   cd EncurtadorDeLinksComSpring
 3. **Abra o arquivo docker-compose.yml e verifique as configurações do serviço PostgreSQL**:
    ```bash
    docker-compose up -d
