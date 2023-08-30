@@ -5,6 +5,7 @@ Este projeto foi desenvolvido com o objetivo de aprimorar meus conhecimentos, ab
 ### Pré-requisitos
 
 - Certifique-se de ter o Docker e o Docker Compose instalados na sua máquina. Se você ainda não os possui, pode baixá-los e instalá-los seguindo as instruções nos sites oficiais do [Docker](https://docs.docker.com/get-docker/) e [Docker Compose](https://docs.docker.com/compose/install/).
+- O projeto foi compilado utilizando Java SDK 17.
 
 ### Passos
 
