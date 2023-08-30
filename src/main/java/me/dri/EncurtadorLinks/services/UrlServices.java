@@ -31,11 +31,17 @@ public class UrlServices {
             throw new UrlFormatInvalid("Url informado é inválido!");
         }
         List<String> urlsBaseInDatabase = this.repository.findAllUrlBase();
-        if (urlsBaseInDatabase.contains(url)) {
+        if (urlsBaseInDatabase.contains(url.urlBase())) {
             UrlEntity urlEntity = this.repository.findByUrlBase(url.urlBase());
             if (this.verifyExpiredDateUrlShortener(urlEntity.getExpiredDate())) {
-                    urlEntity.setExpired(true);
-                    throw  new UrlShortenerExpired("Url expirado!");
+                Instant now = Instant.now();
+                now.atZone(ZoneId.of(ZONEID));
+                urlEntity.setUrlShortener(this.generateUrlShortener());
+                urlEntity.setDateCreatedUrlShortener(now);
+                urlEntity.setExpiredDate(this.generateExpirationDate(now));
+                urlEntity.setExpired(false);
+                this.repository.save(urlEntity);
+                return urlEntity;
                 }
             return urlEntity;
             }
@@ -52,11 +58,11 @@ public class UrlServices {
         public String redirect(String shortKey) {
          UrlEntity urlEntityByShortener = this.repository.findByUrlShortenerEntity(shortKey);
             if (urlEntityByShortener == null) {
-               throw  new NotFoundUrl("Não foi possivel encontrar a URL: ");
+               throw  new NotFoundUrl("Não foi possivel encontrar a URL");
           }
             if (verifyExpiredDateUrlShortener(urlEntityByShortener.getExpiredDate())) {
                 urlEntityByShortener.setExpired(true);
-                throw  new UrlShortenerExpired("Url expirada!");
+                throw  new UrlShortenerExpired("Url expirado!");
             }
            return  urlEntityByShortener.getUrlBase();
        }

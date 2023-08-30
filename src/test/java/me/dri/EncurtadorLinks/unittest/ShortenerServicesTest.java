@@ -1,10 +1,5 @@
 package me.dri.EncurtadorLinks.unittest;
-
-
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import me.dri.EncurtadorLinks.exceptions.NotFoundUrl;
 import me.dri.EncurtadorLinks.exceptions.UrlFormatInvalid;
 import me.dri.EncurtadorLinks.exceptions.UrlShortenerExpired;
@@ -23,10 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -81,22 +72,19 @@ public class ShortenerServicesTest {
     @Test
     void testExceptionUrlNotFound() {
         String urlInvalid = "caguei-nas-calças";
-        assertThrows(NotFoundUrl.class, () -> this.urlServices.redirect(urlInvalid));
+        var exception = assertThrows(NotFoundUrl.class, () -> this.urlServices.redirect(urlInvalid));
+        assertEquals("Não foi possivel encontrar a URL", exception.getMessage());
 
     }
 
     @Test
     void testUrlShortenerExpired() {
-        UrlRequestDTO urlRequestDTO = new UrlRequestDTO("https://www.twitch.tv/gordox");
         UrlEntity url = new UrlEntity();
         url.setExpiredDate(Instant.now().atZone(ZoneId.of("America/Sao_Paulo")).minusHours(5).toInstant());
-        when(this.urlEntityRepository.findAllUrlBase()).thenReturn(List.of(urlRequestDTO.urlBase()));
-        when(this.urlEntityRepository.findByUrlBase(urlRequestDTO.urlBase())).thenReturn(url);
-        assertThrows(UrlShortenerExpired.class, () -> this.urlServices.getUrlEntityShortener(urlRequestDTO));
+        when(this.urlEntityRepository.findByUrlShortenerEntity(any())).thenReturn(url);
+        var exception = assertThrows(UrlShortenerExpired.class, () -> this.urlServices.redirect(url.getUrlShortener()));
+        assertEquals("Url expirado!", exception.getMessage());
 
     }
-
-
-
 
 }
