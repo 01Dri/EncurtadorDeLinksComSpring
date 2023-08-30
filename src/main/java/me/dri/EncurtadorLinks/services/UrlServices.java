@@ -39,10 +39,8 @@ public class UrlServices {
                 urlEntity.setExpiredDate(this.generateExpirationDate(now));
                 urlEntity.setExpired(false);
                 this.repository.save(urlEntity);
-                return this.convertEntityToDTO(urlEntity);
-            } else {
-                return this.convertEntityToDTO(urlEntity);
             }
+            return this.convertEntityToDTO(urlEntity);
         }
 
         String shortKey = this.generateUrlShortener();
@@ -82,7 +80,9 @@ public class UrlServices {
         }
 
         private UrlEntityDTO convertEntityToDTO(UrlEntity urlEntity) {
-            return new UrlEntityDTO(urlEntity.getId(), urlEntity.getUrlBase(), urlEntity.getUrlShortener(), urlEntity.getDateCreatedUrlShortener(), urlEntity.getExpiredDate(), urlEntity.getExpired());
+            return new UrlEntityDTO(urlEntity.getId(), urlEntity.getUrlBase(),
+                    urlEntity.getUrlShortener(), urlEntity.getDateCreatedUrlShortener(),
+                            urlEntity.getExpiredDate(), urlEntity.getExpired());
         }
 
     }

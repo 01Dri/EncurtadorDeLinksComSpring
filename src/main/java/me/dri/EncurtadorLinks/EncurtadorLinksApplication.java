@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.security.NoSuchAlgorithmException;
 
 @SpringBootApplication
-public class EncurtadorLinksApplication {
+public class  EncurtadorLinksApplication {
 
 
 
