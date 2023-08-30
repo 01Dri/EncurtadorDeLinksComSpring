@@ -1,16 +1,18 @@
-### Encurtador de links!
-Afins de aprimorar meu conhecimento, vou tentar resolver o desafio proposto pelo repositório [BackEnd Brasil](https://github.com/backend-br)
+# Encurtador de Links
 
-### Qual a metodologia?
-O sistema é composto por 2 *ENDPOINTS* principais, são eles:
-- `**localhost:8080/dri/encurtador/encurtar:**` (Responsável pelo encurtamento da **URL** fornecida, criando a chave, para acesso do **URL** principal (`**ShortKey**`).
-- `**localhost:8080/dri/encurtador/acessar:**` (Responsável pelo acesso e redirecionamento ao site desejado, por meio da **ShortKey**).
+Este projeto foi desenvolvido com o objetivo de aprimorar meus conhecimentos, abraçando o desafio proposto pelo repositório [BackEnd Brasil](https://github.com/backend-br).
 
-### Como funciona a camada de service?
-A lógica aplicada, é simples, ao fornece o **URL** desejado para o encurtamento, é gerado um `**UUID**` unico, o que eu chamo de `**ShortKey**`, após isso, um objeto `**UrlEntity**` é criado, afins de persistir dados como, `**urlBase**`, `**urlShortener**`, `**dateCreatedUrlShortener**`, `**expiredDate**` e `**expired**`.
+## Metodologia
 
-### Validação e tempo de expiração
-O tempo definido em que a **URL** encurtada e salva no database, chegue a expirar, é de **2 HRS**, caso utilize a mesma, é disparada um exceção `**"UrlShortenerExpired"**`
+O sistema é composto por 2 *endpoints* principais:
 
+- **localhost:8080/dri/encurtador/encurtar:** Responsável por encurtar a URL fornecida, gerando uma chave (*ShortKey*) para acessar a URL original.
+- **localhost:8080/dri/encurtador/acessar:** Responsável por redirecionar o usuário para o site desejado, utilizando a *ShortKey*.
 
+## Camada de Serviço
 
+A lógica aplicada é simples: ao fornecer a URL para encurtamento, um identificador único (UUID) é gerado, sendo denominado de *ShortKey*. Com esse valor, uma instância da classe *UrlEntity* é criada. Essa classe armazena informações como URL base, URL encurtada, data de criação, data de expiração e status de expiração.
+
+## Validação e Tempo de Expiração
+
+A URL encurtada é armazenada no banco de dados com um tempo de expiração de 2 horas. Caso a URL expirada seja utilizada, será lançada uma exceção denominada *"UrlShortenerExpired"*.
