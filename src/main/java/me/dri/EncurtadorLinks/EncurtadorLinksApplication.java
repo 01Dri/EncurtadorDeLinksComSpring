@@ -8,8 +8,6 @@ import java.security.NoSuchAlgorithmException;
 @SpringBootApplication
 public class  EncurtadorLinksApplication {
 
-
-
 	public static void main(String[] args) throws NoSuchAlgorithmException {
 
 		SpringApplication.run(EncurtadorLinksApplication.class, args);
