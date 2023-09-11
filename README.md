@@ -76,7 +76,7 @@ O projeto foi construído utilizando as seguintes tecnologias:
 
 O sistema é composto por 3 *endpoints* principais:
 
-- **localhost:8080/encurtador/encurtar Responsável por encurtar a URL fornecida, gerando uma chave (*ShortKey*) para acessar a URL original.
+- **localhost:8080/encurtador/encurtar Responsável por encurtar a URL fornecida, gerando uma chave (*ShortKey*) para acessar a URL original*.
 - **localhost:8080/enc/{shortKey}:** Responsável por redirecionar o usuário para o site desejado, utilizando a *ShortKey*.
 - **localhost:8080/encurtador/all:** Responsável por exibir todos os URLS encurtados em formato JSON*.
 
