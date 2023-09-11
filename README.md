@@ -12,6 +12,10 @@ Você pode testar o Encurtador de Links diretamente em um servidor AWS EC2 Amazo
 - **Listar URLs Encurtadas em JSON:** [http://54.224.59.14:8080/encurtador/all](http://54.224.59.14:8080/encurtador/all)
   - Este endpoint exibe em formato JSON todas as URLs encurtadas armazenadas no banco de dados.
 
+
+https://github.com/01Dri/EncurtadorDeLinksComSpring/assets/124473653/cd919da4-d279-4251-b4c0-047d6f44ce91
+
+
 ## Pré-requisitos
 
 - Certifique-se de ter o Docker e o Docker Compose instalados na sua máquina. Se você ainda não os possui, pode baixá-los e instalá-los seguindo as instruções nos sites oficiais do [Docker](https://docs.docker.com/get-docker/) e [Docker Compose](https://docs.docker.com/compose/install/).
