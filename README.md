@@ -1,4 +1,4 @@
-# Encurtador de Links
+## Encurtador de Links
 
 Este projeto foi desenvolvido com o objetivo de aprimorar meus conhecimentos, abraçando o desafio proposto pelo repositório [BackEnd Brasil](https://github.com/backend-br).
 
@@ -12,12 +12,12 @@ Você pode testar o Encurtador de Links diretamente em um servidor AWS EC2 Amazo
 - **Listar URLs Encurtadas em JSON:** [http://54.224.59.14:8080/encurtador/all](http://54.224.59.14:8080/encurtador/all)
   - Este endpoint exibe em formato JSON todas as URLs encurtadas armazenadas no banco de dados.
 
-### Pré-requisitos
+## Pré-requisitos
 
 - Certifique-se de ter o Docker e o Docker Compose instalados na sua máquina. Se você ainda não os possui, pode baixá-los e instalá-los seguindo as instruções nos sites oficiais do [Docker](https://docs.docker.com/get-docker/) e [Docker Compose](https://docs.docker.com/compose/install/).
 - O projeto foi compilado utilizando Java SDK 17.
 
-### Passos
+## Passos
 
 1. **Clone este repositório para o seu ambiente local:**
 
@@ -33,7 +33,7 @@ Você pode testar o Encurtador de Links diretamente em um servidor AWS EC2 Amazo
    ```bash
    docker-compose down
 
-### Testando a Aplicação
+## Testando a Aplicação
 
 Você pode testar a aplicação executando testes unitários e de integração. Siga os passos abaixo:
 
