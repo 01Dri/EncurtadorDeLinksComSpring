@@ -51,11 +51,11 @@ Isso executará todos os testes unitários no projeto.
 ### Testes de Integração
 Para executar os testes de integração, você precisará ter o Docker e o Docker Compose instalados e ter iniciado o projeto com o Docker Compose (consulte os Passos no README para iniciar o projeto).
 
-2. **Execute os testes unitários com o comando Maven:**
+1. **Execute os testes unitários com o comando Maven:**
      **Navegue até o diretório raiz do projeto:**
     ```bash
      cd EncurtadorDeLinksComSpring
-    **Após isso inicie os testes com o comando abaixo:**
+2. **Após isso inicie os testes com o comando abaixo:**
    ```bash
    ./mvnw clean verify -Pintegration-test
 
