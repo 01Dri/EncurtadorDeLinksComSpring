@@ -1,0 +1,13 @@
+#spring.jpa.database=POSTGRESQL
+#spring.datasource.platform=postgres
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=create
+spring.datasource.url=jdbc:h2:mem:encurtador
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+#spring.datasource.url=jdbc:postgresql://postgres:542/encurtador
+#spring.datasource.username=postgres
+#spring.datasource.password=admin
+server.port=8080

@@ -1,5 +1,6 @@
 package me.dri.EncurtadorLinks.unittest;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import me.dri.EncurtadorLinks.constants.Contants;
 import me.dri.EncurtadorLinks.exceptions.NotFoundUrl;
 import me.dri.EncurtadorLinks.exceptions.UrlFormatInvalid;
 import me.dri.EncurtadorLinks.exceptions.UrlShortenerExpired;
@@ -14,7 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import java.time.LocalDateTime;
+
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Collections;
 
 
@@ -30,6 +33,7 @@ public class ShortenerServicesTest {
     @InjectMocks
     UrlServices urlServices;
 
+    String ZONE_ID = Contants.ZONE_ID.getValue();
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
@@ -39,7 +43,7 @@ public class ShortenerServicesTest {
     @Test
     void testGenerateShortenerUrl() throws JsonProcessingException {
         UrlRequestDTO urlRequestDTO = new UrlRequestDTO("https://www.twitch.tv/gordox");
-        LocalDateTime nowDateTime = LocalDateTime.now();
+        ZonedDateTime nowDateTime = ZonedDateTime.now(ZoneId.of(ZONE_ID));
        UrlEntity urlEntity = new UrlEntity(1L, urlRequestDTO.urlBase(), "urlEncurtada", nowDateTime, this.urlServices.generateExpirationDate(nowDateTime), false);
        when(this.urlEntityRepository.save(any())).thenReturn(urlEntity);
        var result = this.urlServices.getUrlEntityShortener(urlRequestDTO);
@@ -50,7 +54,7 @@ public class ShortenerServicesTest {
     void testUrlEntityAlreadyExists()  {
         UrlRequestDTO urlRequestDTO = mock(UrlRequestDTO.class);
         when(urlRequestDTO.urlBase()).thenReturn("https://www.twitch.tv/gordox");
-        LocalDateTime nowDateTime = LocalDateTime.now();
+        ZonedDateTime nowDateTime = ZonedDateTime.now(ZoneId.of(ZONE_ID));
         UrlEntity urlEntity = new UrlEntity(1L, urlRequestDTO.urlBase(), "urlEncurtada", nowDateTime, this.urlServices.generateExpirationDate(nowDateTime), false);
         when(this.urlEntityRepository.findAllUrlBase()).thenReturn(Collections.singletonList(urlEntity.getUrlBase()));
         when(this.urlEntityRepository.findByUrlBase(urlRequestDTO.urlBase())).thenReturn(urlEntity);
@@ -70,7 +74,7 @@ public class ShortenerServicesTest {
     void testRedirect() {
         String shortKey = "teste";
         String urlBaseMock = "https://www.twitch.tv/shy11_";
-        LocalDateTime nowDateTime = LocalDateTime.now();
+        ZonedDateTime nowDateTime = ZonedDateTime.now(ZoneId.of(ZONE_ID));
         UrlEntity urlEntity = new UrlEntity(1L, urlBaseMock, shortKey, nowDateTime, this.urlServices.generateExpirationDate(nowDateTime), false);
         when(this.urlEntityRepository.findByUrlShortenerEntity(shortKey)).thenReturn(urlEntity);
         var urlBase = this.urlServices.redirect(shortKey);
@@ -90,7 +94,7 @@ public class ShortenerServicesTest {
     @Test
     void testUrlShortenerExpired() {
         UrlEntity url = new UrlEntity();
-        url.setExpiredDate(LocalDateTime.now().minusHours(5));
+        url.setExpiredDate(ZonedDateTime.now(ZoneId.of(ZONE_ID)).minusHours(5));
         when(this.urlEntityRepository.findByUrlShortenerEntity(any())).thenReturn(url);
         var exception = assertThrows(UrlShortenerExpired.class, () -> this.urlServices.redirect(url.getUrlShortener()));
         assertEquals("Url expirado!", exception.getMessage());

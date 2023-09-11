@@ -1,5 +1,6 @@
 package me.dri.EncurtadorLinks.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import me.dri.EncurtadorLinks.constants.Contants;
 import me.dri.EncurtadorLinks.exceptions.NotFoundUrl;
 import me.dri.EncurtadorLinks.exceptions.UrlFormatInvalid;
 import me.dri.EncurtadorLinks.exceptions.UrlShortenerExpired;
@@ -10,7 +11,8 @@ import me.dri.EncurtadorLinks.repository.UrlEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +21,8 @@ public class UrlServices {
     @Autowired
     private UrlEntityRepository repository;
 
-    private static final String ZONEID = "America/Sao_Paulo";
+
+    String ZONE_ID = Contants.ZONE_ID.getValue();
 
 
     public UrlEntityDTO getUrlEntityShortener(UrlRequestDTO url) throws JsonProcessingException {
@@ -34,7 +37,8 @@ public class UrlServices {
 
 
         String shortKey = this.generateUrlShortener();
-        LocalDateTime nowDateTime = LocalDateTime.now();
+        ZonedDateTime nowDateTime = ZonedDateTime.now(ZoneId.of(ZONE_ID));
+        System.out.println(nowDateTime);
         urlEntity = new UrlEntity(null, url.urlBase(), shortKey, nowDateTime, this.generateExpirationDate(nowDateTime), false);
         System.out.println(urlEntity.getDateCreatedUrlShortener());
         this.repository.save(urlEntity);
@@ -58,8 +62,9 @@ public class UrlServices {
     }
 
 
-    public LocalDateTime generateExpirationDate(LocalDateTime dataCreated) {
+    public ZonedDateTime generateExpirationDate(ZonedDateTime dataCreated) {
         return dataCreated.plusHours(2);
+
     }
 
     private String generateUrlShortener() {
@@ -68,9 +73,9 @@ public class UrlServices {
         return uuidString.substring(0, 7);
     }
 
-    private Boolean verifyExpiredDateUrlShortener(LocalDateTime expiredDate) {
-        LocalDateTime date = LocalDateTime.now();
-        return date.isAfter(expiredDate);
+    private Boolean verifyExpiredDateUrlShortener(ZonedDateTime expiredDate) {
+        ZonedDateTime nowDateTime = ZonedDateTime.now(ZoneId.of(ZONE_ID));
+        return nowDateTime.isAfter(expiredDate);
     }
 
     private UrlEntityDTO convertEntityToDTO(UrlEntity urlEntity) {
@@ -84,7 +89,7 @@ public class UrlServices {
         if (urlsBaseInDatabase.contains(url.urlBase())) {
             UrlEntity urlEntity = this.repository.findByUrlBase(url.urlBase());
             if (this.verifyExpiredDateUrlShortener(urlEntity.getExpiredDate())) {
-                LocalDateTime nowDateTime = LocalDateTime.now();
+                ZonedDateTime nowDateTime = ZonedDateTime.now(ZoneId.of(ZONE_ID));
                 urlEntity.setUrlShortener(this.generateUrlShortener());
                 urlEntity.setDateCreatedUrlShortener(nowDateTime);
                 urlEntity.setExpiredDate(this.generateExpirationDate(nowDateTime));
