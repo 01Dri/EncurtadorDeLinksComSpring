@@ -59,9 +59,9 @@ Para executar os testes de integração, você precisará ter o Docker e o Docke
    ```bash
    ./mvnw clean verify -Pintegration-test
 
-### Tecnologias Utilizadas
 
-## Tecnologias Utilizadas
+
+### Tecnologias Utilizadas
 
 O projeto foi construído utilizando as seguintes tecnologias:
 
@@ -72,7 +72,7 @@ O projeto foi construído utilizando as seguintes tecnologias:
 - [Testcontainers](https://java.testcontainers.org/): Uma biblioteca para configurar o ambiente Docker para teste de integração.
 - [RestAssured](https://rest-assured.io/): Uma biblioteca para testes de integração.
 
-## Metodologia
+### Metodologia
 
 O sistema é composto por 3 *endpoints* principais:
 
@@ -80,10 +80,10 @@ O sistema é composto por 3 *endpoints* principais:
 - **localhost:8080/enc/{shortKey}:** Responsável por redirecionar o usuário para o site desejado, utilizando a *ShortKey*.
 - **localhost:8080/encurtador/all:** Responsável por exibir todos os URLS encurtados em formato JSON*.
 
-## Camada de Serviço
+### Camada de Serviço
 
 A lógica aplicada é simples: ao fornecer a URL para encurtamento, um identificador único (UUID) é gerado, sendo denominado de *ShortKey*. Com esse valor, uma instância da classe *UrlEntity* é criada. Essa classe armazena informações como URL base, URL encurtada, data de criação, data de expiração e status de expiração.
 
-## Validação e Tempo de Expiração
+### Validação e Tempo de Expiração
 
 A URL encurtada é armazenada no banco de dados com um tempo de expiração de 2 horas. Caso a URL expirada seja utilizada, será lançada uma exceção denominada *"UrlShortenerExpired"*.
