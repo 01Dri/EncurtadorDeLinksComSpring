@@ -4,8 +4,6 @@ package me.dri.EncurtadorLinks.models;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 

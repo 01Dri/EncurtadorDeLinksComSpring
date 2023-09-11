@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encurtador de Links</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #000, #222) fixed;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            animation: backgroundAnimation 10s infinite linear;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #short-link {
+            font-weight: bold;
+            margin-top: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Encurtador de Links</h1>
+        <div class="input-container">
+            <input type="text" id="original-link" placeholder="Cole seu link aqui">
+            <button id="shorten-button">Encurtar</button>
+        </div>
+        <p id="short-link"></p>
+    </div>
+
+    <script>
+        document.getElementById("shorten-button").addEventListener("click", function () {
+            var url = "http://54.224.59.14:8080/encurtador/encurtar"
+            const originalLink = document.getElementById("original-link").value;
+        
+            const data = {urlBase: originalLink}
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+
+                },
+                body: JSON.stringify(data),
+
+            })
+            .then((response) => response.json())
+            .then((data) => {
+            console.log("Success:", data);
+            })
+            .catch((error) => {
+            console.error("Error:", error);
+            });
+            // Coloque aqui a lógica de encurtamento do link.
+            // Por enquanto, vou apenas mostrar o link original.
+            document.getElementById("short-link").innerText = "Link encurtado: " + originalLink;
+        });
+    </script>
+</body>
+</html>
