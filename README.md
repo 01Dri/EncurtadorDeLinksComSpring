@@ -37,7 +37,7 @@ Você pode testar o Encurtador de Links diretamente em um servidor AWS EC2 Amazo
 
 Você pode testar a aplicação executando testes unitários e de integração. Siga os passos abaixo:
 
-### Testes Unitários
+## Testes Unitários
 
 1. **Navegue até o diretório raiz do projeto:**
     ```bash
@@ -48,10 +48,10 @@ Você pode testar a aplicação executando testes unitários e de integração. 
    
 Isso executará todos os testes unitários no projeto.
 
-### Testes de Integração
+## Testes de Integração
 Para executar os testes de integração, você precisará ter o Docker e o Docker Compose instalados e ter iniciado o projeto com o Docker Compose (consulte os Passos no README para iniciar o projeto).
 
-### Execute os testes unitários com o comando Maven:**
+## Execute os testes unitários com o comando Maven:**
 1. **Navegue até o diretório raiz do projeto:**
     ```bash
      cd EncurtadorDeLinksComSpring
@@ -61,7 +61,7 @@ Para executar os testes de integração, você precisará ter o Docker e o Docke
 
 
 
-### Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 O projeto foi construído utilizando as seguintes tecnologias:
 
@@ -72,7 +72,7 @@ O projeto foi construído utilizando as seguintes tecnologias:
 - [Testcontainers](https://java.testcontainers.org/): Uma biblioteca para configurar o ambiente Docker para teste de integração.
 - [RestAssured](https://rest-assured.io/): Uma biblioteca para testes de integração.
 
-### Metodologia
+## Metodologia
 
 O sistema é composto por 3 *endpoints* principais:
 
@@ -80,7 +80,7 @@ O sistema é composto por 3 *endpoints* principais:
 - **localhost:8080/enc/{shortKey}:** Responsável por redirecionar o usuário para o site desejado, utilizando a *ShortKey*.
 - **localhost:8080/encurtador/all:** Responsável por exibir todos os URLS encurtados em formato JSON*.
 
-### Camada de Serviço
+## Camada de Serviço
 
 A lógica aplicada é simples: ao fornecer a URL para encurtamento, um identificador único (UUID) é gerado, sendo denominado de *ShortKey*. Com esse valor, uma instância da classe *UrlEntity* é criada. Essa classe armazena informações como URL base, URL encurtada, data de criação, data de expiração e status de expiração.
 
