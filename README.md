@@ -33,11 +33,11 @@ Você pode testar o Encurtador de Links diretamente em um servidor AWS EC2 Amazo
    ```bash
    docker-compose down
 
-## Testando a Aplicação
+### Testando a Aplicação
 
 Você pode testar a aplicação executando testes unitários e de integração. Siga os passos abaixo:
 
-## Testes Unitários
+### Testes Unitários
 
 1. **Navegue até o diretório raiz do projeto:**
     ```bash
@@ -48,10 +48,10 @@ Você pode testar a aplicação executando testes unitários e de integração. 
    
 Isso executará todos os testes unitários no projeto.
 
-## Testes de Integração
+### Testes de Integração
 Para executar os testes de integração, você precisará ter o Docker e o Docker Compose instalados e ter iniciado o projeto com o Docker Compose (consulte os Passos no README para iniciar o projeto).
 
-## Execute os testes unitários com o comando Maven:**
+### Execute os testes unitários com o comando Maven:**
 1. **Navegue até o diretório raiz do projeto:**
     ```bash
      cd EncurtadorDeLinksComSpring
