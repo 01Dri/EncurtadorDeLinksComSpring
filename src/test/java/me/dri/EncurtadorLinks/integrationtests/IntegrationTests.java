@@ -27,7 +27,7 @@ public class IntegrationTests {
 
     @BeforeAll
     public static void setuo() {
-        RestAssured.baseURI = "http://localhost";
+        RestAssured.baseURI = "http://54.224.59.14 ";
     }
 
     @Test
