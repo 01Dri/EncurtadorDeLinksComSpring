@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -22,9 +23,9 @@ public class UrlEntity implements Serializable {
     private String urlShortener;
 
     @Column(name = "URL_SHORTENER_DATE_CREATED")
-    private Instant dateCreatedUrlShortener;
+    private LocalDateTime dateCreatedUrlShortener;
     @Column(name = "URL_EXPIREDDATE")
-    private Instant expiredDate;
+    private LocalDateTime expiredDate;
 
     @Column(name = "expired")
     private Boolean expired;
@@ -33,7 +34,7 @@ public class UrlEntity implements Serializable {
 
     }
 
-    public UrlEntity(Long id, String urlBase, String urlShortener, Instant dateCreatedUrlShortener, Instant expiredDate, Boolean expired) {
+    public UrlEntity(Long id, String urlBase, String urlShortener, LocalDateTime dateCreatedUrlShortener, LocalDateTime expiredDate, Boolean expired) {
         this.id = id;
         this.urlBase = urlBase;
         this.urlShortener = urlShortener;
@@ -66,19 +67,19 @@ public class UrlEntity implements Serializable {
         this.urlShortener = urlShortener;
     }
 
-    public Instant getDateCreatedUrlShortener() {
+    public LocalDateTime getDateCreatedUrlShortener() {
         return dateCreatedUrlShortener;
     }
 
-    public void setDateCreatedUrlShortener(Instant dateCreatedUrlShortener) {
+    public void setDateCreatedUrlShortener(LocalDateTime dateCreatedUrlShortener) {
         this.dateCreatedUrlShortener = dateCreatedUrlShortener;
     }
 
-    public Instant getExpiredDate() {
+    public LocalDateTime getExpiredDate() {
         return expiredDate;
     }
 
-    public void setExpiredDate(Instant expiredDate) {
+    public void setExpiredDate(LocalDateTime expiredDate) {
         this.expiredDate = expiredDate;
     }
 

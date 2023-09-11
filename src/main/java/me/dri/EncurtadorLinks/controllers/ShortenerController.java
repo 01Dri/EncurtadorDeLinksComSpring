@@ -9,10 +9,11 @@ import me.dri.EncurtadorLinks.services.UrlServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
+
+import java.net.URI;
 
 @RestController
-@RequestMapping("/dri/encurtador")
+@RequestMapping("/encurtador")
 public class ShortenerController {
 
     @Autowired
@@ -23,13 +24,10 @@ public class ShortenerController {
 
     @PostMapping("/encurtar")
     public ResponseEntity shortenerUrl(@RequestBody UrlRequestDTO url) throws JsonProcessingException {
-        return ResponseEntity.ok().body(this.urlServices.getUrlEntityShortener(url));
+        URI location = URI.create("http:localhost/8080");
+        return ResponseEntity.created(location).body(this.urlServices.getUrlEntityShortener(url));
     }
-    @GetMapping("/acessar/{shortKey}")
-    public RedirectView acessSUrlBaseByShortener(@PathVariable String shortKey) {
-        var urlDTO = this.urlServices.redirect(shortKey);
-       return new RedirectView(urlDTO);
-   }
+
 
     @GetMapping("/all")
     public ResponseEntity findALL() {
