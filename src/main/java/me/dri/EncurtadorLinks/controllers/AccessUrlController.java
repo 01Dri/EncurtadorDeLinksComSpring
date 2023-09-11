@@ -13,6 +13,7 @@ public class AccessUrlController {
 
     @Autowired
     private UrlServices urlServices;
+    
     @GetMapping("/enc/{shortKey}")
     public RedirectView acessSUrlBaseByShortener(@PathVariable String shortKey) {
         var urlDTO = this.urlServices.redirect(shortKey);
